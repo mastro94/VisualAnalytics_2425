@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multiple Sclerosis Epidemiology Analyzer</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <script src="https://d3js.org/d3.v7.min.js"></script> 
+  <script src="https://unpkg.com/topojson@3"></script>
+</head>
+<body>
+
+  <header>
+    <h1>Multiple Sclerosis Epidemiology Analyzer</h1>
+    <div class="controls">
+      <label for="years">Select Year:</label>
+      <input type="range" id="years" name="years" min="0" max="2" step="1" value="0" oninput="updateYearFromSlider(this.value)">
+      <span id="selected-year">2008</span>
+      <button id="reset-button" onclick="resetApplication()">RESET ALL</button>
+    </div>
+  </header>
+
+  
+  <div class="main-container">
+    <!-- Top Left: Map Visualization -->
+    <div class="visualization map-section">
+      <p class="chart-title" style="font-size: 32px; font-weight: bold; margin-top: 15px; margin-bottom: 40px;">
+        Global Prevalence Map
+      </p>
+      <div class="map-controls" style="display: flex;justify-content: center;align-items: center;gap: 20px;margin-bottom: 10px;flex-wrap: nowrap;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <label for="year-selector" style="font-size: 32px; display: flex; align-items: center;">
+            Select Year:
+            </label>
+            <select id="year-selector" style="font-size: 25px; padding: 10px; width: 250px; height: 50px; text-align: center;"></select>
+        </div>
+        
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <label for="measure-selector" style="font-size: 32px; display: flex; align-items: center;">
+            Select Measure:
+            </label>
+            <select id="measure-selector" style="font-size: 25px; padding: 10px; width: 250px; height: 50px; text-align: center;"></select>
+        </div>
+      </div>
+
+      <svg id="world-map"></svg>
+      <div id="country-name" class="country-name-display"></div>
+    </div>
+
+    <!-- Top Right: PCA Clustering -->
+    <div class="visualization pca-clustering-chart">
+      <p class="chart-title" style="font-size: 32px; font-weight: bold; margin-top: 15px; margin-bottom: 40px;">
+        PCA Clustering of MS Metrics and Correlations
+      </p>
+      <div class="pca-controls" style="display: flex;justify-content: center;align-items: center;gap: 20px;margin-bottom: 10px;flex-wrap: nowrap;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <label for="pca-year-selector" style="font-size: 32px; display: flex; align-items: center;">Select Year:</label>
+          <select id="pca-year-selector" style="font-size: 25px; padding: 10px; width: 250px; height: 50px; text-align: center;"></select>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <label for="pca-variable-selector" style="font-size: 32px; display: flex; align-items: center;">Select Analysis:</label>
+          <select id="pca-variable-selector" style="font-size: 25px; padding: 10px; width: 450px; height: 50px; text-align: center;">
+            <option value="4">4 Variables (Total MS Cases, Prevalence, Incidence, Mean Age of Onset)</option>
+            <option value="2">2 Variables (Total MS Cases, Mean Age of Onset)</option>
+            <option value="ms-smokers">Correlation: MS Cases vs. Smokers</option>
+          </select>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <label for="cluster-dropdown" style="font-size: 32px; display: flex; align-items: center;">Select Clusters:</label>
+          <select id="cluster-dropdown" style="font-size: 25px; padding: 10px; width: 150px; height: 50px; text-align: center;"></select>
+        </div>
+      </div>
+      <div id="pca-clustering-container" style="width:100%; height:100%;">
+        <div id="cluster-chart" style="width: 100%; height: 100%;"></div>
+      </div>
+    </div>
+    
+
+    <!-- Bottom Left: Bubble Chart -->
+    <div class="visualization scatterplot">
+        <p class="chart-title" style="font-size: 32px; font-weight: bold; margin-top: 15px; margin-bottom: 40px;">
+        Bubble Chart: Correlation between Smokers and MS Cases
+        </p>
+        <div class="bubble-controls" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 10px;">
+            
+                <label for="scatterplot-year" style="font-size: 32px; height: 50px; display: flex; align-items: center;">Select Year:</label>
+                <select id="scatterplot-year" style="font-size: 25px; padding: 10px; width: 250px; height: 50px; text-align: center;"></select>
+              
+        </div>
+        <div id="scatterplot-container" style="width: 100%; height: 100%;"></div>
+    </div>
+    
+
+    <!-- Bottom Right: Combined Stacked Bar and Parallel Coordinates -->
+    <div class="visualization combined-chart" style="display: flex;flex-direction: column;gap: 10px;height: 100%;padding-top: 10px;">
+      <!-- Top: Stacked Bar Chart -->
+      <div class="stacked-bar" style="flex: 1;display: flex;flex-direction: column;justify-content: flex-start;align-items: stretch;padding: 5px;">
+        <p class="sub-chart-title" style="font-size: 40px;font-weight: bold;margin: 10px 0 15px 0;text-align: center;">
+          Stacked Bar Chart: MS Types Distribution by Region
+        </p>
+        <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 5px;">
+          <label for="year-select" style="font-size: 32px; height: 50px; display: flex; align-items: center;">Select Year:</label>
+          <select id="year-select" style="font-size: 25px; padding: 10px; width: 250px; height: 50px; text-align: center;">
+            <option value="2013" selected>2013</option>
+            <option value="2020-2022">2020–2022</option>
+          </select>
+          <label for="region-select" style="font-size: 32px; height: 50px; display: flex; align-items: center;">Select Region:</label>
+          <select id="region-select" style="font-size: 25px; padding: 10px; width: 250px; height: 50px; text-align: center;">
+            <option value="all">All Regions</option>
+            <option value="African">African</option>
+            <option value="Americas">Americas</option>
+            <option value="Eastern Mediterranean">Eastern Mediterranean</option>
+            <option value="European">European</option>
+            <option value="South-East Asia">South-East Asia</option>
+            <option value="Western Pacific">Western Pacific</option>
+          </select>
+        </div>
+        <p id="selected-region" style="text-align: center; font-size: 16px; margin-bottom: 5px;"></p>
+        <div id="stacked-bar-chart" style="flex: 1; width: 100%;"></div>
+      </div>
+
+
+
+      <!-- Bottom: Parallel Coordinates Chart -->
+      <div class="parallel-coordinates" style="flex: 1;display: flex;flex-direction: column;justify-content: flex-start;align-items: stretch;padding: 5px 5px 0px 90px;">
+        <p class="sub-chart-title" style="font-size: 40px;font-weight: bold;margin: 5px 0 10px 0;text-align: center;">
+          Parallel Coordinates Chart: MS Metrics by Macro Regions
+        </p>
+        <div style="display: flex; justify-content: center; margin-bottom: 5px;">
+
+          <label for="metric-select" style="font-size: 32px; height: 50px; display: flex; align-items: center;">Select Metric:</label>
+          <select id="metric-select" style="font-size: 25px; padding: 10px; width: 250px; height: 50px; text-align: center;"></select>
+
+        </div>
+        <div id="parallel-chart" style="flex: 1; width: 100%;"></div>
+      </div>
+    </div>
+
+
+
+    <div id="tooltip" style="position: absolute; visibility: hidden; background: rgba(0, 0, 0, 0.8); color: white; padding: 10px; border-radius: 8px; font-size: 12px; pointer-events: none;"></div>
+
+    <!-- Scripts -->
+    <script src="scripts/utilities.js"></script>
+    <script src="scripts/stackedBarChart.js"></script>
+    <script src="scripts/parallelCoordinatesChart.js"></script>
+    <script src="scripts/bothClusterVisualizations.js"></script>
+    <script src="scripts/heatMap.js"></script>
+    <script src="scripts/scatterPlot.js"></script>
+    <script src="https://d3js.org/topojson.v3.min.js"></script>
+</body>
+</html>
