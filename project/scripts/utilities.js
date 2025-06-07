@@ -1,6 +1,8 @@
 // Default year
 
-let globalYear = "2008";  
+let globalYear = "2008"; 
+
+initAutoZoom();
 
 // Function to update the year globally from the slider
 function updateYearFromSlider(value) {
@@ -89,6 +91,7 @@ function updateStackedBar(selectedYear, reset = false) {
 function initAutoZoom() {
   window.addEventListener('DOMContentLoaded', () => {
     document.body.style.zoom = '30%';
+    console.log('AutoZoom 30%');
   });
 }
 
