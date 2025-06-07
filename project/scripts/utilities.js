@@ -1,5 +1,5 @@
 // Default year
-
+//removed zoom function
 let globalYear = "2008"; 
 
 
