@@ -86,6 +86,11 @@ function updateStackedBar(selectedYear, reset = false) {
     loadAndAggregateData(effectiveYear, effectiveRegion);
 }
 
+function initAutoZoom() {
+  window.addEventListener('DOMContentLoaded', () => {
+    document.body.style.zoom = '30%';
+  });
+}
 
 
 // Update the cluster visualization with default values
@@ -128,4 +133,5 @@ function resetParallelCoordinatesChart() {
         console.error("Parallel coordinates data not loaded yet.");
     }
 }
+
   
