@@ -6,13 +6,13 @@ Project for Visual Analytics course taught by Prof. Giuseppe Santucci at La Sapi
 Francesco Mastrostefano
 
 ## Overview
-Multiple Sclerosis (MS) is a chronic, autoimmune neurological disease and one of the leading causes of non-traumatic disability in young adults. In the last 10 years, MS incidence has been rising globally, increasing the interest of researchers, more specifically epidemiologists. With this project, my goal is to turn complex and heterogeneous MS epidemiological data into an intuitive and interactive Visual Analytics web application.
+Multiple Sclerosis (MS) is a chronic, autoimmune neurological disease and one of the leading causes of non-traumatic disability in young adults. In the last 10 years, MS incidence has been rising globally, increasing the interest of researchers, more specifically epidemiologists. With this project, my goal is to turn complex and heterogeneous MS epidemiological data into an intuitive and interactive visual analytics web application.
 
-The application unifies MS data (prevalence, incidence, disease types, age of onset) with lifestyle indicators like smoking, using a coordinated set of views that enable users (e.g.from public health researchers to patients) to explore data, identify patterns, and generate hypotheses.
+The application unifies MS data (prevalence, incidence, disease types, age of onset) with lifestyle indicators like smoking, using a coordinated set of views that enable users (e.g. from public health researchers to patients) to explore data, identify patterns, and generate hypotheses.
 
 ## Description
 The core data sources are:
-- **Atlas of MS**: A global dataset collecting country-level MS data in 2008, 2013, and 2020-2022 years, including prevalence, incidence, MS subtypes, and diagnostic infos.
+- **Atlas of MS**: A global dataset collecting country-level MS data in 2008, 2013, and 2020-2022 years, including prevalence, incidence, MS subtypes, diagnostic infos and other epidemiological details.
 - **GBD 2019 Smokers Dataset**: Containing global data on smoking numerics by country.
 
 I selected and cleaned key indicators from :
@@ -28,15 +28,15 @@ Data derived and obtained from these mentioned selection were normalized, merged
 ## Visualizations
 The application presents multiple coordinated views, each one with possibility selection of year and analysis variable of interest by the user:
 
-- **Choropleth Heatmap**: Visualizes prevalence or incidence for each country by using color intensity scale, projecting these infos over a global map, reflecting the numerical variation related to the chosen metric.
+- **Choropleth Map**: Visualizes prevalence or incidence for each country by using color intensity scale, projecting these infos over a global map, reflecting the numerical variation related to the chosen metric.
 - **Bubble Chart**: Analyzes smokers vs. MS cases for each WHO region (African,Americas,European,Western Pacific,South-East Asia,Eastern Mediterranean macro regions), with bubble size representing the MS-to-smoker ratio.
 - **Stacked Bar Chart**: Chart related to proportions of MS subtypes with respect to WHO macro-regions.
-- **Parallel Coordinates Chart**: Represents temporal evolution of metrics  by WHO region across time periods.
-- **PCA Clustering Plot**: Visualizes three clustering options: (i) 2-variable MS-only clustering, (ii) 4-variable clustering with prevalence/incidence/onset/cases, and (iii) MS + Smoking combined clustering.
+- **Parallel Coordinates Chart**: Represents temporal evolution of metrics by WHO region across time periods.
+- **PCA Clustering Plot**: Visualizes three clustering options: (i) 2-variable MS-only clustering, (ii) 4-variable clustering with prevalence/incidence/age onset/cases, and (iii) MS + Smoking combined clustering.
 
 These visualizations offer exploration of:
 - Regional patterns and temporal trends
-- Lifestyle risk correlations (e.g., smoking)
+- Lifestyle risk correlations (e.g. smoking)
 - Disease heterogeneity
 - Discover of hidden clustering patterns between countries
 
@@ -46,7 +46,6 @@ The backend is deployed on **PythonAnywhere** using a simple, lightweight and ef
 - Preprocessing and caching using SHA-256 hashes
 - Computations of PCA and KMeans clustering
 
-QUI
 
 ## Use Cases
 The platform supports several use cases:
