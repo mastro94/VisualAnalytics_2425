@@ -17,7 +17,7 @@ function updateYearFromSlider(value) {
     d3.select("#selected-year").text(globalYear);
 
     // For updating all charts with the global year
-    updateHeatMap(globalYear);
+    updateChoroplethMap(globalYear);
     updateScatterPlot(globalYear);
     updateClusterVisualization(globalYear);
     updateStackedBar(globalYear);
@@ -37,7 +37,7 @@ function resetApplication() {
     d3.select("#pca-year-selector").property("value", "2008");
 
     // Reset charts to default year and values
-    updateHeatMap(globalYear);
+    updateChoroplethMap(globalYear);
     updateScatterPlot(globalYear);
     resetClusterVisualization(globalYear);
     resetStackedBarChart(); 
@@ -45,8 +45,8 @@ function resetApplication() {
 
 }
 
-// Update the heatmap visualization with the selected year
-function updateHeatMap(selectedYear) {
+// Update the choroplethmap visualization with the selected year
+function updateChoroplethMap(selectedYear) {
     d3.select("#year-selector").property("value", selectedYear);
 
     measureType = "prevalence";

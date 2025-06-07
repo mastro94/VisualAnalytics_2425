@@ -442,7 +442,7 @@ let missingCountries = []; // Array used to collect unmatched countries
 
 function loadMapData(year, measure) {
     // API URL to fetch data 
-    const apiUrl = `https://mastro94visualanalytics.pythonanywhere.com/api/data/heatMap?file=${year}.csv`;
+    const apiUrl = `https://mastro94visualanalytics.pythonanywhere.com/api/data/choroplethMap?file=${year}.csv`;
 
     // Columns for prevalence and incidence
     let prevalenceColumn, incidenceColumn;
