@@ -2,7 +2,6 @@
 
 let globalYear = "2008"; 
 
-initAutoZoom();
 
 // Function to update the year globally from the slider
 function updateYearFromSlider(value) {
@@ -88,12 +87,49 @@ function updateStackedBar(selectedYear, reset = false) {
     loadAndAggregateData(effectiveYear, effectiveRegion);
 }
 
-function initAutoZoom() {
-  window.addEventListener('DOMContentLoaded', () => {
-    document.body.style.zoom = '30%';
-    console.log('AutoZoom 30%');
+// Automatically scales the page on load and handles ⌘/Ctrl + -/+/0
+function enableAutoZoom(initialScale = 0.3) {
+  let currentScale = initialScale;
+
+  function applyZoom() {
+    const html = document.documentElement;
+    html.style.transformOrigin = '0 0';
+    html.style.transform = `scale(${currentScale})`;
+    html.style.width     = `${100 / currentScale}%`;
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyZoom);
+  } else {
+    applyZoom();
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (!(e.ctrlKey || e.metaKey)) return;
+    switch (e.key) {
+      case '-': case '_':
+        e.preventDefault();
+        currentScale = Math.max(0.1, currentScale - 0.1);
+        applyZoom();
+        break;
+      case '+': case '=':
+        e.preventDefault();
+        currentScale = Math.min(3, currentScale + 0.1);
+        applyZoom();
+        break;
+      case '0':
+        e.preventDefault();
+        currentScale = initialScale;
+        applyZoom();
+        break;
+    }
   });
 }
+
+
+//auto-zoom at 30% value
+enableAutoZoom(0.3);    
+
 
 
 // Update the cluster visualization with default values
