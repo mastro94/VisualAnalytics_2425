@@ -87,39 +87,6 @@ function updateStackedBar(selectedYear, reset = false) {
     loadAndAggregateData(effectiveYear, effectiveRegion);
 }
 
-//automatic view
-(function initAutoZoomWrapper() {
-  const initialScale = 0.3;
-
-  console.log("inside initAutozoom");
-
-  function applyZoom() {
-    // Create a wrapper and move every body child into it
-    const wrapper = document.createElement('div');
-    wrapper.id = 'zoom-wrapper';
-    while (document.body.firstChild) {
-      wrapper.appendChild(document.body.firstChild);
-    }
-    document.body.appendChild(wrapper);
-
-
-    wrapper.style.transformOrigin = '0 0';
-    wrapper.style.transform       = `scale(${initialScale})`;
-    wrapper.style.width           = `${100 / initialScale}%`;
-
-
-    document.body.style.margin   = '0';
-    document.body.style.overflow = 'auto';
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', applyZoom);
-  } else {
-    applyZoom();
-  }
-})();  
-
-
 
 // Update the cluster visualization with default values
 function resetClusterVisualization() {
