@@ -87,15 +87,29 @@ function updateStackedBar(selectedYear, reset = false) {
     loadAndAggregateData(effectiveYear, effectiveRegion);
 }
 
-// Automatically scales the page on load and handles ⌘/Ctrl + -/+/0
-function enableAutoZoom(initialScale = 0.3) {
-  let currentScale = initialScale;
+//automatic view
+(function initAutoZoomWrapper() {
+  const initialScale = 0.3;
+
+  console.log("inside initAutozoom");
 
   function applyZoom() {
-    const html = document.documentElement;
-    html.style.transformOrigin = '0 0';
-    html.style.transform = `scale(${currentScale})`;
-    html.style.width     = `${100 / currentScale}%`;
+    // Create a wrapper and move every body child into it
+    const wrapper = document.createElement('div');
+    wrapper.id = 'zoom-wrapper';
+    while (document.body.firstChild) {
+      wrapper.appendChild(document.body.firstChild);
+    }
+    document.body.appendChild(wrapper);
+
+
+    wrapper.style.transformOrigin = '0 0';
+    wrapper.style.transform       = `scale(${initialScale})`;
+    wrapper.style.width           = `${100 / initialScale}%`;
+
+
+    document.body.style.margin   = '0';
+    document.body.style.overflow = 'auto';
   }
 
   if (document.readyState === 'loading') {
@@ -103,32 +117,7 @@ function enableAutoZoom(initialScale = 0.3) {
   } else {
     applyZoom();
   }
-
-  window.addEventListener('keydown', (e) => {
-    if (!(e.ctrlKey || e.metaKey)) return;
-    switch (e.key) {
-      case '-': case '_':
-        e.preventDefault();
-        currentScale = Math.max(0.1, currentScale - 0.1);
-        applyZoom();
-        break;
-      case '+': case '=':
-        e.preventDefault();
-        currentScale = Math.min(3, currentScale + 0.1);
-        applyZoom();
-        break;
-      case '0':
-        e.preventDefault();
-        currentScale = initialScale;
-        applyZoom();
-        break;
-    }
-  });
-}
-
-
-//auto-zoom at 30% value
-enableAutoZoom(0.3);    
+})();  
 
 
 
