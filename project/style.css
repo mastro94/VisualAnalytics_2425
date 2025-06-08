@@ -28,12 +28,12 @@ header {
 
 /* Title */
 h1 {
-    font-size: 32px;
+    font-size: 60px;
     margin-right: auto;
 }
 
 header label[for="years"] {
-    font-size: 25px;
+    font-size: 35px;
     margin-right: 8px;
 }
 
@@ -70,7 +70,7 @@ header input[type="range"]::-moz-range-thumb,
 }
 
 #selected-year {
-    font-size: 14px;
+    font-size: 40px;
     color: #FFA500;
     font-weight: bold;
     margin-left: 8px;
@@ -244,7 +244,7 @@ header input[type="range"]::-moz-range-thumb,
 
     .chart-title, .sub-chart-title,
     label, select, button {
-        font-size: 18px !important;
+        font-size: 100px !important;
     }
 
     select, button {
