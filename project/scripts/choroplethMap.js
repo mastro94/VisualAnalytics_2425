@@ -386,6 +386,18 @@ const mapSvg = d3.select("#world-map")
     .attr("width", mapWidth)
     .attr("height", mapHeight);
 
+
+const svgGroup = mapSvg.append("g")
+  .attr("class", "zoom-layer");
+
+const zoom = d3.zoom()
+  .scaleExtent([1, 8])                             
+  .on("zoom", event => svgGroup.attr("transform", event.transform));
+
+mapSvg.call(zoom);                                 
+
+
+
 const mapProjection = d3.geoNaturalEarth1()
     .scale(170)
     .translate([mapWidth / 2, mapHeight / 2]);
@@ -517,7 +529,7 @@ function loadMapData(year, measure) {
 
                 missingCountries = []; 
 
-                mapSvg.selectAll("path")
+                svgGroup.selectAll("path")
                     .data(countries)
                     .join("path")
                     .attr("d", mapPath)
@@ -608,6 +620,7 @@ function loadMapData(year, measure) {
 function updateLegend(measure) {
 
     d3.select("#legend-container").remove();
+    d3.select(".map-section").selectAll(".zoom-controls").remove();
 
 
     const scale = measure === "prevalence" ? colorScales.prevalence : colorScales.incidence;
@@ -685,9 +698,41 @@ function updateLegend(measure) {
     legendContainer.append("p")
         .style("text-align", "center")
         .style("margin", "12px 0 0 0")
-        .style("font-size", "20px")
+        .style("font-size", "25px")
         .style("font-weight", "bold")
         .text(`${capitalizeFirstLetter(measure)} (per 100,000)`);
+
+    const controls = d3.select(".map-section")
+    .append("div")
+        .attr("class", "zoom-controls")
+        .style("text-align", "center")
+        .style("margin-top", "10px");
+
+    // “+” button
+    controls.append("button")
+        .attr("id", "zoom-in")
+        .text("+")
+        .style("font-size", "38px")
+        .style("width", "50px")
+        .style("height", "50px")
+        .style("margin-right", "8px")
+        .on("click", () => {
+            mapSvg.transition().duration(400)
+            .call(zoom.scaleBy, 1.5);
+        });
+
+    // “–” button
+    controls.append("button")
+        .attr("id", "zoom-out")
+        .text("–")
+        .style("font-size", "38px")
+        .style("width", "50px")
+        .style("height", "50px")
+        .on("click", () => {
+            mapSvg.transition().duration(400)
+            .call(zoom.scaleBy, 1 / 1.5);
+        });
+
 }
 
 
