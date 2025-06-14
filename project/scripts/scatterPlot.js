@@ -317,7 +317,7 @@ legendItems.append("text")
                 `);
         })
         .on("mousemove", event => {
-            tooltip.style("top", `${event.pageY - 20}px`)
+            tooltip.style("top", `${event.pageY - 250}px`)
                 .style("left", `${event.pageX + 10}px`);
         })
         .on("mouseout", () => tooltip.style("visibility", "hidden"));

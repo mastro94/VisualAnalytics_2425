@@ -77,7 +77,7 @@ header input[type="range"]::-moz-range-thumb,
 }
 
 #reset-button {
-    font-size: 20px;
+    font-size: 30px;
     padding: 8px 16px;
     background: #5865F2;
     color: white;
