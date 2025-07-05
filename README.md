@@ -65,9 +65,9 @@ To use the web application: simply users can interact and explore the features o
 - Organizing user study sessions with neurologists and analysts to improve usability
 
 ## Project Links
-- [Project Proposal](docs/VisualAnalytics_Proposal.pdf)
-- [Final Report](docs/v2_officialReport.pdf)
-- [Live Application](https://mastro94visualanalytics.pythonanywhere.com/)
+- [Project Proposal](docs/1672787_MastrostefanoFrancesco_Proposal.pdf)
+- [Final Report](docs/1672787_Mastrostefano_Francesco_Report.pdf)
+- [Live Application](https://mastro94.github.io/VisualAnalytics_2425/)
 
 
 
