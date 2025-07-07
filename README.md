@@ -23,7 +23,7 @@ I selected and cleaned key indicators from :
 
 Data derived and obtained from these mentioned selection were normalized, merged, and transformed into three restructured CSVs, each one for the year of analysis. Smoking data were aligned and merged with MS data.
 
-![Web App Screenshot](docs/screenshot.png)
+![MS Epidemiology Analyzer](docs/screenVAWebApp.png)
 
 ## Visualizations
 The application presents multiple coordinated views, each one with possibility selection of year and analysis variable of interest by the user:
@@ -55,7 +55,7 @@ The platform supports several use cases:
 - Researchers investigating temporal and demographic changes
 
 ## How to use
-To use the web application: simply users can interact and explore the features offered by this project by navigating to the <DA INSERIRE URL>.
+To use the web application: simply users can interact and explore the features offered by this project by navigating to the [application](https://mastro94.github.io/VisualAnalytics_2425/).
 
 
 
