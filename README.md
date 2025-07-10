@@ -67,7 +67,9 @@ To use the web application: simply users can interact and explore the features o
 ## Project Links
 - [Project Proposal](docs/1672787_MastrostefanoFrancesco_Proposal.pdf)
 - [Final Report](docs/1672787_Mastrostefano_Francesco_Report.pdf)
+- [PPT Presentation](docs/1672787_Francesco_Mastrostefano.ppt)
 - [Live Application](https://mastro94.github.io/VisualAnalytics_2425/)
+
 
 
 
